@@ -7,6 +7,12 @@ Start use the index.php page
 2 - Create a user and password 2 - After you you open the index.php page the system will request to set the connection.
 3 - Use the user and password made on mysql at secound step the creation of database, tables and views will be created automactic
 
+To this task we use:
+PHP / HTML / CSS / Javascripts
+
+Libraries: 
+PptxGenJS / Google Charts / D3js / W3-css / Jquery
+
 If you have some doubts, you can watch the videos series at youtube or open the issue to this repository.
 
  - Videos series: https://www.youtube.com/playlist?list=PL9gBE1GKF5p0Q3AuFNcUgAUe6sKGAgZAF
