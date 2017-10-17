@@ -1,16 +1,22 @@
 # Reporting-Mysql-to-Powerpoint
 How get data from mysql and use this data to make a report on powerpoint
 
-Start use the index.php page
+# Start use the index.php page
 
 1 - Set the your mysql
 2 - Create a user and password 2 - After you you open the index.php page the system will request to set the connection.
 3 - Use the user and password made on mysql at secound step the creation of database, tables and views will be created automactic
+4 - On login page: 
+User: admim
+Password: admin
+5 - On Administator page:
+User: ADM
+Password: adm
 
-To this task we use:
-PHP / HTML / CSS / Javascripts / Ajax / Bootstrap
+# To this task we use:
+PHP / HTML / CSS / Javascripts / Ajax / Bootstrap / JSON
 
-Libraries: 
+# Libraries: 
 PptxGenJS / Google Charts / D3js / W3-css / Jquery / Bootstrap
 
 If you have some doubts, you can watch the videos series at youtube or open the issue to this repository.
