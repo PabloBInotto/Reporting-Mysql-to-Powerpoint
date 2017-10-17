@@ -8,10 +8,10 @@ Start use the index.php page
 3 - Use the user and password made on mysql at secound step the creation of database, tables and views will be created automactic
 
 To this task we use:
-PHP / HTML / CSS / Javascripts
+PHP / HTML / CSS / Javascripts / Ajax / Bootstrap
 
 Libraries: 
-PptxGenJS / Google Charts / D3js / W3-css / Jquery
+PptxGenJS / Google Charts / D3js / W3-css / Jquery / Bootstrap
 
 If you have some doubts, you can watch the videos series at youtube or open the issue to this repository.
 
