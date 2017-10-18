@@ -33,6 +33,7 @@
       email varchar(50) CHARACTER SET latin1 DEFAULT NULL,
       function VARCHAR(10) CHARACTER SET latin1 DEFAULT NULL,
       level VARCHAR(10) CHARACTER SET latin1 DEFAULT NULL,
+      pass VARCHAR(10) CHARACTER SET latin1 DEFAULT NULL,
       reg_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
       KEY (id_ex)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
