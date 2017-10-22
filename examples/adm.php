@@ -55,6 +55,13 @@ body {
   stroke-opacity: 1;
 }
 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
 </style>
 <svg viewBox="0 0 375 96" style="position: absolute; top: 1px; right: 50px; width: 120px; height: 68px;">
   <g transform="translate(17,0)">
@@ -203,29 +210,21 @@ if (!$conn) {
             </div>
               <div class='w3-container w3-cell'>
                  <h1>Wellcome " . $adm . "</h1>
-
               </div>
-
               <div class='w3-container w3-cell-middle w3-cell w3-black '>
               <a href='index.php' class='w3-bar-item w3-button'>Home</a>
               </div>
               ";
-
-
             }
             // executors management
             echo "
               <div class='w3-container w3-cell-middle w3-cell w3-black '>
-
-
                 <div class='w3-dropdown-hover w3-black' style='width:100; height:100; z-index:3; overflow: auto'>
                   <button class='w3-button'>Executors management</button>
                   <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-black'>
                 ";
-
                 $sql = "SELECT * FROM `executor`";
                 $result = @mysqli_query($conn, $sql);
-
                 if (@mysqli_num_rows($result) > 0) {
                     // output data of each row
                     while($row = @mysqli_fetch_assoc($result)) {
@@ -234,24 +233,18 @@ if (!$conn) {
                 } else {
                     echo "<a href='' class='w3-bar-item w3-button'>Not executors found</a>";
                 }
-
                   // Clients management
-                echo "
-
+                    echo "
+                  </div>
                 </div>
               </div>
-              </div>
-
               <div class='w3-container w3-cell-middle w3-cell w3-black '>
-
                 <div class='w3-dropdown-hover w3-black' style='width:100; height:100; z-index:3; overflow: auto'>
                   <button class='w3-button'>Clients management</button>
                   <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-black'>
                 ";
-
                 $sql = "SELECT * FROM `worker`";
                 $result = @mysqli_query($conn, $sql);
-
                 if (@mysqli_num_rows($result) > 0) {
                     // output data of each row
                     while($row = @mysqli_fetch_assoc($result)) {
@@ -260,37 +253,62 @@ if (!$conn) {
                 } else {
                     echo "<a href='' class='w3-bar-item w3-button'>Not Clients registred</a>";
                 }
-
                 echo "
-
+                  </div>
                 </div>
+                </div>
+              ";
+        } ?>
+        <div class='w3-container w3-cell-middle w3-cell w3-black '>
+                <div class="btn-group">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Status <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">By Executor</a></li>
+                      <li><a href="#">Work Orders</a></li>
+                      <li><a href="#">By Type</a></li>
+                    </ul>
+                  </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                      Cost <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Execution</a></li>
+                        <li><a href="#">Material</a></li>
+                        <li><a href="pptx_1.php">General</a></li>
+                      </ul>
+                  </div>
               </div>
-              </div>
+          </div>
+        </div>
+      </div>
 
+      <div class='w3-container w3-cell w3-black' style='width:30%'>
+          <div class='w3-black' id='donutchart' style='width: 400px; height: 300px;'></div>
+      </div>
 
-            </div>
+      <div id="figure" class='w3-container w3-cell w3-black w3-margin' style='width:70%;'>
 
-            </div>";
+      </div>
 
-
-      }
-echo "<div class='w3-container w3-cell w3-black'>
-        <div class='w3-black' id='donutchart' style='width: 400px; height: 300px;'></div>
+      <div class='w3-container w3-cell w3-display-bottomleft'>
       </div>
         <div class='w3-container w3-cell'>
-                      <p>ToDoList <input class='w3-button w3-border w3-border-green w3-round-large w3-black' type='button' value='Print this page' onclick='printPage()' /> </p>
-                      <table class='w3-table w3-bordered'>
-                      <tr>
-                      <th></th>
-                        <th>W/O</th>
-                        <th>Area</th>
-                        <th>Aberta em</th>
-                        <th>Status</th>
-                        <th>Decrição</th>
-                        <th>Cliente</th>
-                        <th>E-mail</th>
-                      </tr>";
-                      mysqli_set_charset($conn,"utf8");
+          <p>ToDoList <input class='w3-button w3-border w3-border-green w3-round-large w3-black' type='button' value='Print this page' onclick='printPage()' /> </p>
+            <table class='w3-table w3-bordered'>
+                    <tr>
+                        <th></th>
+                          <th>W/O</th>
+                          <th>Area</th>
+                          <th>Aberta em</th>
+                          <th>Status</th>
+                          <th>Andamento</th>
+                          <th>Decrição</th>
+                          <th>Cliente</th>
+                          <th>E-mail</th>
+                      </tr>
+  <?php                    mysqli_set_charset($conn,"utf8");
                       $sql = "SELECT * FROM orede_by_worker where `status` <> 'Closed' and `status` <> 'Cancelled'";
                         $result = mysqli_query($conn, $sql);
                           if(@mysqli_num_rows($result) > 0){
@@ -300,7 +318,6 @@ echo "<div class='w3-container w3-cell w3-black'>
                                 <td>
                                   <div class="w3-container">
                                     <button onclick="document.getElementById('id0<?php echo $row['id_wo']; ?>').style.display='block'" class="w3-button w3-border w3-border-green w3-round-large w3-black">UPDATE</button>
-
                                     <div id="id0<?php echo $row['id_wo']; ?>" class="w3-modal">
                                       <div class="w3-modal-content">
                                         <header class="w3-container w3-teal">
@@ -334,6 +351,7 @@ echo "<div class='w3-container w3-cell w3-black'>
                                   <td>".$row['area']."</td>
                                   <td>".$row['wo_date']."</td>
                                   <td>".$row['status']."</td>
+                                  <td>".$row['details']."</td>
                                   <td>".$row['oreder']."</td>
                                   <td>".$row['firstname']."</td>
                                   <td>".$row['email']."</td>
@@ -342,7 +360,7 @@ echo "<div class='w3-container w3-cell w3-black'>
                             }
                           }
                   echo "</table>
-                          </div>";
+                    </div>";
 
       ?>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -372,7 +390,7 @@ echo "<div class='w3-container w3-cell w3-black'>
         titleTextStyle: { color: '#00b300' },
         pieHole: 0.3,
         backgroundColor: '#000000',
-        colors: ['#cc0052','#00cc00','#cc6600', '#0066cc']
+        colors: ['#cc0052','#00cc00','#cc6600', '#0066cc', '#4d4d4d']
       });
       }
       </script>
@@ -386,6 +404,157 @@ echo "<div class='w3-container w3-cell w3-black'>
       @mysqli_close($conn);
       ?>
 
+<script>
 
-    </body>
+var margin = {top: 50, right: 20, bottom: 10, left: 85},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], .3);
+
+var x = d3.scale.linear()
+    .rangeRound([0, width]);
+
+var color = d3.scale.ordinal()
+    .range(["#c7001e", "#f6a580", "#cccccc", "#92c6db", "#086fad"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("top");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+
+var svg = d3.select("#figure").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("id", "d3-plot")
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  color.domain(["Strongly disagree", "Disagree", "Neither agree nor disagree", "Agree", "Strongly agree"]);
+
+  d3.csv("raw_data.csv", function(error, data) {
+
+  data.forEach(function(d) {
+    // calc percentages
+    d["Strongly disagree"] = +d[1]*100/d.N;
+    d["Disagree"] = +d[2]*100/d.N;
+    d["Neither agree nor disagree"] = +d[3]*100/d.N;
+    d["Agree"] = +d[4]*100/d.N;
+    d["Strongly agree"] = +d[5]*100/d.N;
+    var x0 = -1*(d["Neither agree nor disagree"]/2+d["Disagree"]+d["Strongly disagree"]);
+    var idx = 0;
+    d.boxes = color.domain().map(function(name) { return {name: name, x0: x0, x1: x0 += +d[name], N: +d.N, n: +d[idx += 1]}; });
+  });
+
+  var min_val = d3.min(data, function(d) {
+          return d.boxes["0"].x0;
+          });
+
+  var max_val = d3.max(data, function(d) {
+          return d.boxes["4"].x1;
+          });
+
+  x.domain([min_val, max_val]).nice();
+  y.domain(data.map(function(d) { return d.Question; }));
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+
+  var vakken = svg.selectAll(".question")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d) { return "translate(0," + y(d.Question) + ")"; });
+
+  var bars = vakken.selectAll("rect")
+      .data(function(d) { return d.boxes; })
+    .enter().append("g").attr("class", "subbar");
+
+  bars.append("rect")
+      .attr("height", y.rangeBand())
+      .attr("x", function(d) { return x(d.x0); })
+      .attr("width", function(d) { return x(d.x1) - x(d.x0); })
+      .style("fill", function(d) { return color(d.name); });
+
+  bars.append("text")
+      .attr("x", function(d) { return x(d.x0); })
+      .attr("y", y.rangeBand()/2)
+      .attr("dy", "0.5em")
+      .attr("dx", "0.5em")
+      // não usar cor no texto
+      .style("font" ,"10px sans-serif")
+      .style("text-anchor", "begin")
+      .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n : "" });
+
+  vakken.insert("rect",":first-child")
+      .attr("height", y.rangeBand())
+      .attr("x", "1")
+      .attr("width", width)
+      .style("fill", "#262626")// cor de fundo onde não tem valores nas barras
+      .attr("fill-opacity", "0.5")
+      .attr("class", function(d,index) { return index%2==0 ? "even" : "uneven"; });
+
+  svg.append("g")
+      .attr("class", "y axis")
+  .append("line")
+      .attr("x1", x(0))
+      .attr("x2", x(0))
+      //.style("fill", "#f2f2f2")
+      .attr("y2", height);
+
+  var startp = svg.append("g")
+    .attr("class", "legendbox")
+    .attr("id", "mylegendbox");
+  // this is not nice, we should calculate the bounding box and use that
+  var legend_tabs = [0, 120, 200, 375, 450];
+  var legend = startp.selectAll(".legend")
+      .data(color.domain().slice())
+    .enter().append("g")
+      .attr("class", "legend")
+      .style("fill", "#f2f2f2")
+      .attr("transform", function(d, i) { return "translate(" + legend_tabs[i] + ",-45)"; });
+
+  legend.append("rect")
+      .attr("x", 0)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", 22)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "begin")
+      .style("fill", "#f2f2f2")
+      .style("font" ,"10px sans-serif")
+      .text(function(d) { return d; });
+
+  d3.selectAll(".axis path")
+      .style("fill", "none")
+      .style("stroke", "#f2f2f2")
+      .style("shape-rendering", "crispEdges")
+
+  d3.selectAll(".axis line")
+      .style("fill", "none")
+      .style("stroke", "#f2f2f2")
+      .style("shape-rendering", "crispEdges")
+
+  var movesize = width/2 - startp.node().getBBox().width/2;
+  d3.selectAll(".legendbox")
+    .attr("transform", "translate(" + movesize  + ",0)");
+
+
+});
+</script>
+
+      </body>
     </html>
