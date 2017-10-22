@@ -22,6 +22,7 @@ include 'header.php';
                       <div class='w3-container w3-cell'>
                         <div id='donutchart' style='width: 400px; height: 300px;'></div>
                       </div>
+                      
                 <?php    echo "
                       <div class='w3-container w3-cell'>
                         <p>". $area. " ToDoList <input class='w3-button w3-white w3-border w3-border-green w3-round-large' type='button' value='Print this page' onclick='printPage()' /> </p>
@@ -31,6 +32,7 @@ include 'header.php';
                           <th>W/O</th>
                           <th>Aberta em</th>
                           <th>Status</th>
+                          <th>Andamento</th>
                           <th>Decrição</th>
                           <th>Cliente</th>
                           <th>E-mail</th>
@@ -78,6 +80,7 @@ include 'header.php';
                               echo "<td>".$row['id_wo']."</td>
                                   <td>".$row['wo_date']."</td>
                                   <td>".$row['status']."</td>
+                                  <td>".$row['details']."</td>
                                   <td>".$row['oreder']."</td>
                                   <td>".$row['firstname']."</td>
                                   <td>".$row['email']."</td>
@@ -114,7 +117,7 @@ include 'header.php';
         chart.draw(data, {
           title: 'W/O status',
           pieHole: 0.3,
-          colors: ['#ffff99', '#99ff99', '#cc99ff', '#9999ff', '#ffb399']
+          colors: ['#00cc00','#cc6600', '#cc0052','#0066cc', '#4d4d4d']
         });
       }
     </script>
